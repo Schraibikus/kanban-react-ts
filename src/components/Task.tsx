@@ -1,19 +1,50 @@
-export type TaskProps = {
-  title: string;
-  description?: string;
-};
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import { TaskContext } from "../Context/context";
 
-export const tasks = [
-  { id: 1, title: "Task 1", description: "Description 1" },
-  { id: 2, title: "Task 2", description: "Description 2" },
-  { id: 3, title: "Task 3", description: "Description 3" },
-  { id: 4, title: "Task 4", description: "Description 4" },
-];
+interface TaskProps {
+  name: string;
+  id: number;
+}
 
-export const Task = (props: TaskProps) => {
+export default function Task(props: TaskProps) {
+  const [isOptionVisible, setIsOptionVisible] = useState(false);
+  const { tasks, updateTasks } = useContext(TaskContext);
+
+  function showOptionsHandler() {
+    setIsOptionVisible((prev) => !prev);
+  }
+
+  function deleteTaskHandler() {
+    const updatedTasks = tasks.filter((task) => task.id !== props.id);
+    updateTasks(updatedTasks);
+  }
+
   return (
-    <>
-      <div className="bg-white rounded-[5px] p-4 mb-4">{props.title}</div>
-    </>
+    <div className="group__task" task-id={props.id} data-testid="task">
+      <p className="task__name">{props.name}</p>
+      <button
+        className="task__settings"
+        onClick={showOptionsHandler}
+        data-testid="settings"
+      ></button>
+      {isOptionVisible && (
+        <div className="task__options">
+          <Link
+            to={`/edit?task=${props.id}`}
+            className="options__item options__item_edit"
+            data-testid="editButton"
+          >
+            Edit
+          </Link>
+          <button
+            className="options__item options__item_delete"
+            onClick={deleteTaskHandler}
+          >
+            Delete
+          </button>
+        </div>
+      )}
+    </div>
   );
-};
+}

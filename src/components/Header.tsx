@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-export const Header = () => {
+export const Header: React.FC = () => {
   const [selected, setSelected] = useState(false);
 
-  function showSelectionHandler() {
+  function showSelectionHandler(): void {
     setSelected((prev) => !prev);
     document.querySelector(".dropdown-header")?.classList.toggle("rotate-180");
   }
