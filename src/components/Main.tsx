@@ -1,8 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import EditCard from "./EditCard";
 import CardList from "./CardList";
-import "./main.css";
-import "./group.css";
 
 export const Main: React.FC = () => {
   return (
@@ -12,7 +10,7 @@ export const Main: React.FC = () => {
         <Route
           path="/"
           element={
-            <section className="groups flex">
+            <section className="groups grid grid-cols-4 gap-6 w-full">
               <CardList className="group__backlog" title="Backlog"></CardList>
               <CardList className="group__ready" title="Ready"></CardList>
               <CardList

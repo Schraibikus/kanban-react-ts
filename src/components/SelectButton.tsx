@@ -1,5 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { TaskContext } from "../Context/context";
+import { buttonStyleNormal } from "./AddButton";
 
 interface SelectButtonProps {
   className: string;
@@ -18,7 +19,7 @@ const PrevGroupClassName: IPrevGroupClassName = {
 };
 export default function SelectButton(props: SelectButtonProps) {
   const [buttonClassName, setButtonClassName] = useState(
-    `group__button button__select select_${props.className}`
+    `${buttonStyleNormal} select_${props.className}`
   );
   const selectRef = useRef<HTMLButtonElement>(null);
   const { tasks, updateTasks } = useContext(TaskContext);
@@ -30,17 +31,11 @@ export default function SelectButton(props: SelectButtonProps) {
   const [isSelectShowed, setIsSelectShowed] = useState(false);
 
   useEffect(() => {
-    if (isSelectShowed) {
-      setButtonClassName((prev) => `${prev} button__select_active`);
-    } else
-      setButtonClassName(
-        `group__button button__select select_${props.className}`
-      );
-  }, [isSelectShowed, props.className]);
+    setButtonClassName(`${buttonStyleNormal} select_${props.className}`);
+  }, [props.className]);
 
   function toggleSelectHandler() {
-    if (selectRef.current!.classList.contains("button__select_disabled"))
-      return;
+    if (selectRef.current!.classList.contains(buttonStyleNormal)) return;
     setIsSelectShowed((prev) => !prev);
   }
 
@@ -70,10 +65,15 @@ export default function SelectButton(props: SelectButtonProps) {
       </button>
 
       {isSelectShowed && (
-        <ul className="select__list">
+        <ul className="rounded-lg bg-white p-2 mt-2 cursor-pointer">
           {currentTasks.map((task) => {
             return (
-              <li key={task.id} data-key={task.id} onClick={selectTaskHandler}>
+              <li
+                className="text-black hover:text-red-500 transition-all duration-300 p-1"
+                key={task.id}
+                data-key={task.id}
+                onClick={selectTaskHandler}
+              >
                 {task.title}
               </li>
             );

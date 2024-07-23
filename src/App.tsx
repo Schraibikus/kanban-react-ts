@@ -6,7 +6,7 @@ import { HashRouter } from "react-router-dom";
 import { TaskContext } from "./Context/context";
 import { ITask } from "./mockData";
 
-function App() {
+function App(): JSX.Element {
   const storageTasks: ITask[] = JSON.parse(
     localStorage.getItem("tasks") || "[]"
   );

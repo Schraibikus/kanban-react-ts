@@ -2,13 +2,19 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { TaskContext } from "../Context/context";
 import { ITask } from "../mockData";
 
+export const buttonStyleNormal =
+  "w-[100px] h-[30px] bg-transparent rounded-lg p-1 text-sm text-secondary-gray-text cursor-pointer transition-all duration-300 hover:bg-white hover:text-black disabled:bg-transparent disabled:text-secondary-gray-text disabled:cursor-not-allowed";
+
 export default function AddButton() {
+  const buttonStyleSubmit =
+    "w-[100px] h-[30px] bg-primary-blue rounded-lg p-1 text-sm text-white cursor-pointer transition-all duration-300 hover:bg-secondary-blue hover:text-primary-gray disabled:bg-transparent disabled:text-secondary-gray-text disabled:cursor-not-allowed";
+  const inputStyle =
+    "w-full h-[38px] mb-[15px] bg-white rounded-lg p-2 text-sm text-secondary-gray-text outline-none  placeholder:border-solid placeholder:border-t-0 placeholder:border-l-0 placeholder:border-r-0 placeholder:border-b-1 placeholder:text-black";
   const inputRef = useRef<HTMLInputElement>(null);
   const { tasks, addTask } = useContext(TaskContext);
-
   const [isInputShowed, setIsInputShowed] = useState(false);
   const [buttonText, setButtonText] = useState("+ Add Card");
-  const [buttonClassName, setButtonClassName] = useState("group__button");
+  const [buttonClassName, setButtonClassName] = useState(buttonStyleNormal);
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
@@ -20,7 +26,7 @@ export default function AddButton() {
         if (inputRef.current.value) return;
         setIsInputShowed(false);
         setButtonText("+ Add Card");
-        setButtonClassName("group__button");
+        setButtonClassName(buttonStyleNormal);
       }
     }
 
@@ -50,10 +56,10 @@ export default function AddButton() {
   function changeButton() {
     if (isInputShowed === true) {
       setButtonText("Submit");
-      setButtonClassName("group__button group__button_active");
+      setButtonClassName(buttonStyleSubmit);
     } else {
       setButtonText("+ Add Card");
-      setButtonClassName("group__button");
+      setButtonClassName(buttonStyleNormal);
     }
   }
 
@@ -77,7 +83,7 @@ export default function AddButton() {
       {isInputShowed ? (
         <input
           ref={inputRef}
-          className="group__input"
+          className={inputStyle}
           type="text"
           placeholder=" "
           value={inputValue}

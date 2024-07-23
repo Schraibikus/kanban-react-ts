@@ -3,7 +3,6 @@ import { TaskContext } from "../Context/context";
 import Task from "./Task";
 import AddButton from "./AddButton";
 import SelectButton from "./SelectButton";
-import "./group.css";
 
 interface CardListProps {
   className: string;
@@ -19,7 +18,7 @@ export default function CardList(props: CardListProps) {
   const filteredTasks = tasks.filter((task) => task.status === groupName);
 
   return (
-    <section className={groupClassName}>
+    <section className="bg-primary-gray shadow-md rounded-[10px] p-5 max-h-[calc(100vh-300px)] overflow-auto">
       <p className="text-lg mb-5">{props.title}</p>
 
       {filteredTasks.map((task) => (
@@ -27,7 +26,7 @@ export default function CardList(props: CardListProps) {
       ))}
 
       {groupClassName.includes("backlog") ? (
-        <AddButton></AddButton>
+        <AddButton />
       ) : (
         <SelectButton className={groupName}></SelectButton>
       )}
