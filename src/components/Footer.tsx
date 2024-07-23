@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import { TaskContext } from "../Context/context";
 
-export const Footer = () => {
+export const Footer: React.FC = () => {
   const { tasks } = useContext(TaskContext);
 
-  const showActiveTasks = tasks.filter(
+  const showActiveTasks: number = tasks.filter(
     (task) => task.status === "ready"
   ).length;
-  const showFinishedTasks = tasks.filter(
+  const showFinishedTasks: number = tasks.filter(
     (task) => task.status === "finished"
   ).length;
   return (

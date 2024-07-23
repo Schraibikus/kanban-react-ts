@@ -2,13 +2,13 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { TaskContext } from "../Context/context";
 import { ITask } from "../mockData";
 
-export const buttonStyleNormal =
+export const buttonStyleNormal: string =
   "w-[100px] h-[30px] bg-transparent rounded-lg p-1 text-sm text-secondary-gray-text cursor-pointer transition-all duration-300 hover:bg-white hover:text-black disabled:bg-transparent disabled:text-secondary-gray-text disabled:cursor-not-allowed";
 
-export default function AddButton() {
-  const buttonStyleSubmit =
+export default function AddButton(): JSX.Element {
+  const buttonStyleSubmit: string =
     "w-[100px] h-[30px] bg-primary-blue rounded-lg p-1 text-sm text-white cursor-pointer transition-all duration-300 hover:bg-secondary-blue hover:text-primary-gray disabled:bg-transparent disabled:text-secondary-gray-text disabled:cursor-not-allowed";
-  const inputStyle =
+  const inputStyle: string =
     "w-full h-[38px] mb-[15px] bg-white rounded-lg p-2 text-sm text-secondary-gray-text outline-none  placeholder:border-solid placeholder:border-t-0 placeholder:border-l-0 placeholder:border-r-0 placeholder:border-b-1 placeholder:text-black";
   const inputRef = useRef<HTMLInputElement>(null);
   const { tasks, addTask } = useContext(TaskContext);
@@ -43,7 +43,7 @@ export default function AddButton() {
     }
   }, [changeButton, isInputShowed]);
 
-  function toggleInputHandler() {
+  function toggleInputHandler(): void {
     setIsInputShowed((prev) => !prev);
 
     if (isInputShowed) {
@@ -53,7 +53,7 @@ export default function AddButton() {
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  function changeButton() {
+  function changeButton(): void {
     if (isInputShowed === true) {
       setButtonText("Submit");
       setButtonClassName(buttonStyleSubmit);
@@ -63,11 +63,11 @@ export default function AddButton() {
     }
   }
 
-  function changeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+  function changeHandler(event: React.ChangeEvent<HTMLInputElement>): void {
     setInputValue(event.target.value);
   }
 
-  function createNewTask() {
+  function createNewTask(): void {
     const newTask: ITask = {
       id: tasks.length,
       title: inputValue,

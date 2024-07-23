@@ -2,17 +2,17 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { TaskContext } from "../Context/context";
 import { Link, useLocation } from "react-router-dom";
 
-export default function EditCard() {
+export default function EditCard(): JSX.Element {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const { tasks, updateTasks } = useContext(TaskContext);
-  const taskID = +useLocation().search.split("=")[1];
+  const taskID: number = +useLocation().search.split("=")[1];
   const [textAreaValue, setTextAreaValue] = useState(tasks[taskID].description);
 
-  function changeHandler(event: React.ChangeEvent<HTMLTextAreaElement>) {
+  function changeHandler(event: React.ChangeEvent<HTMLTextAreaElement>): void {
     setTextAreaValue(event.target.value);
   }
 
-  function saveChangesHandler() {
+  function saveChangesHandler(): void {
     const updatedTasks = tasks;
     updatedTasks.filter((task) => task.id === taskID)[0].description =
       textAreaValue;
@@ -36,7 +36,7 @@ export default function EditCard() {
         placeholder="This task has no description"
         value={textAreaValue}
         data-testid="text-area"
-      ></textarea>
+      />
       <div className="flex gap-5 mt-5">
         <Link
           to="/"

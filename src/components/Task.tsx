@@ -7,18 +7,18 @@ interface TaskProps {
   id: number;
 }
 
-export default function Task(props: TaskProps) {
+export default function Task(props: TaskProps): JSX.Element {
   const optionsItemClassName =
     "flex justify-center items-center w-full h-[20px] text-black hover:text-red-500 cursor-pointer";
 
   const [isOptionVisible, setIsOptionVisible] = useState(false);
   const { tasks, updateTasks } = useContext(TaskContext);
 
-  function showOptionsHandler() {
+  function showOptionsHandler(): void {
     setIsOptionVisible((prev) => !prev);
   }
 
-  function deleteTaskHandler() {
+  function deleteTaskHandler(): void {
     const updatedTasks = tasks.filter((task) => task.id !== props.id);
     updateTasks(updatedTasks);
   }

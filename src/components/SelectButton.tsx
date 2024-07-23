@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { TaskContext } from "../Context/context";
 import { buttonStyleNormal } from "./AddButton";
+import { ITask } from "../mockData";
 
 interface SelectButtonProps {
   className: string;
@@ -17,13 +18,14 @@ const PrevGroupClassName: IPrevGroupClassName = {
   progress: "ready",
   finished: "progress",
 };
-export default function SelectButton(props: SelectButtonProps) {
+export default function SelectButton(props: SelectButtonProps): JSX.Element {
   const [buttonClassName, setButtonClassName] = useState(
     `${buttonStyleNormal} select_${props.className}`
   );
-  const selectRef = useRef<HTMLButtonElement>(null);
+  const selectRef: React.MutableRefObject<HTMLButtonElement | null> =
+    useRef<HTMLButtonElement>(null);
   const { tasks, updateTasks } = useContext(TaskContext);
-  const currentTasks = tasks.filter(
+  const currentTasks: ITask[] = tasks.filter(
     (task) =>
       task.status ===
       PrevGroupClassName[props.className as keyof IPrevGroupClassName]
@@ -34,12 +36,14 @@ export default function SelectButton(props: SelectButtonProps) {
     setButtonClassName(`${buttonStyleNormal} select_${props.className}`);
   }, [props.className]);
 
-  function toggleSelectHandler() {
+  function toggleSelectHandler(): void {
     if (selectRef.current!.classList.contains(buttonStyleNormal)) return;
     setIsSelectShowed((prev) => !prev);
   }
 
-  function selectTaskHandler(e: React.MouseEvent<HTMLLIElement, MouseEvent>) {
+  function selectTaskHandler(
+    e: React.MouseEvent<HTMLLIElement, MouseEvent>
+  ): void {
     const taskID: string | null = e.currentTarget.getAttribute("data-key");
     if (!taskID) return;
     const updatedTasks = tasks.map((task) => {
