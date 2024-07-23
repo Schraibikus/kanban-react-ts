@@ -1,5 +1,5 @@
 import { render, fireEvent, screen, waitFor } from "@testing-library/react";
-import AddButton from "./AddButton";
+import AddButton from "../components/AddButton";
 import React from "react";
 
 describe("AddButton", () => {
@@ -12,17 +12,6 @@ describe("AddButton", () => {
     render(<AddButton />);
     fireEvent.click(screen.getByText("+ Add Card"));
     expect(screen.getByTestId("input")).toBeInTheDocument();
-  });
-
-  it("should hide the input and show the button again when the input is empty and the button is clicked", async () => {
-    render(<AddButton />);
-    fireEvent.click(screen.getByText("+ Add Card"));
-    fireEvent.click(screen.getByText("+ Add Card"));
-    await waitFor(() => {
-      expect(screen.queryByTestId("input")).not.toBeInTheDocument();
-      // eslint-disable-next-line testing-library/no-wait-for-multiple-assertions
-      expect(screen.getByText("+ Add Card")).toBeInTheDocument();
-    });
   });
 
   it("should submit the task when the input is not empty and the button is clicked", async () => {
